@@ -21,29 +21,14 @@ jobs:
       - name: Run tests
         uses: ./.github/actions/lint
 
-  read-secrets:
-    runs-on: ubuntu-latest
+  build-and-push-extension-catalog:
     needs: lint
-    outputs:
-      DOCKER_USERNAME: ${{ steps.extract-secrets.outputs.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ steps.extract-secrets.outputs.DOCKER_PASSWORD }}
-    steps:
-    
-    - name: Set outputs
-      id: extract-secrets
-      run: |
-        echo "DOCKER_USERNAME=${{ secrets.REGISTRY_USER }}" >> "$GITHUB_ENV"
-        echo "DOCKER_PASSWORD=${{ secrets.REGISTRY_TOKEN }}" >> "$GITHUB_ENV"
-        echo "DOCKER_USERNAME=${{ secrets.REGISTRY_USER }}" >> "$GITHUB_OUTPUT"
-        echo "DOCKER_PASSWORD=${{ secrets.REGISTRY_TOKEN }}" >> "$GITHUB_OUTPUT"
-
-  build-extension-charts:
-    needs: read-secrets
     uses: ./.github/workflows/build-extension-catalog.yml
     permissions:
       actions: write
       contents: read
       packages: write
+      id-token: write
     with:
       registry_target: docker.io
       repository_name: harvester-ui-catalog

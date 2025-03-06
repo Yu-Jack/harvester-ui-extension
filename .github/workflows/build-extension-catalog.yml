@@ -14,7 +14,7 @@ on:
         value: ${{ jobs.build-extension-catalog.outputs.build-status }}
 
 jobs:
-  build-extension-catalog:
+  build-and-push-extension-catalog:
     name: Build container image
     if: github.ref_type == 'tag' || (github.ref == 'refs/heads/main' && github.event_name != 'pull_request')
     runs-on: ubuntu-latest
