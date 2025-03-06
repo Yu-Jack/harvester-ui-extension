@@ -46,7 +46,4 @@ jobs:
       packages: write
     with:
       registry_target: docker.io
-      registry_user: ${{ needs.read-secrets.outputs.DOCKER_USERNAME }}
-      repository_name: "harvester-ui-catalog"
-    secrets:
-      registry_token: ${{ needs.read-secrets.outputs.DOCKER_PASSWORD }}
+      repository_name: harvester-ui-catalog
