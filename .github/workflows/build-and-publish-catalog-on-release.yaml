@@ -27,18 +27,12 @@ jobs:
       DOCKER_USERNAME: ${{ steps.extract-secrets.outputs.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ steps.extract-secrets.outputs.DOCKER_PASSWORD }}
     steps:
-    - name: Read Secrets
-      uses: rancher-eio/read-vault-secrets@main
-      with:
-        secrets: |
-          secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials username | DOCKER_USERNAME ;
-          secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials password | DOCKER_PASSWORD ;
     
     - name: Set outputs
       id: extract-secrets
       run: |
-        echo "DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}" >> "$GITHUB_OUTPUT"
-        echo "DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }}" >> "$GITHUB_OUTPUT"
+        echo "DOCKER_USERNAME=${{ secrets.registry_user }}" >> "$GITHUB_OUTPUT"
+        echo "DOCKER_PASSWORD=${{ secrets.registry_token }}" >> "$GITHUB_OUTPUT"
 
   build-extension-charts:
     needs:
