@@ -31,8 +31,8 @@ jobs:
     - name: Set outputs
       id: extract-secrets
       run: |
-        echo "DOCKER_USERNAME=${{ secrets.registry_user }}" >> "$GITHUB_OUTPUT"
-        echo "DOCKER_PASSWORD=${{ secrets.registry_token }}" >> "$GITHUB_OUTPUT"
+        echo "DOCKER_USERNAME=${{ secrets.REGISTRY_USER }}" >> "$GITHUB_OUTPUT"
+        echo "DOCKER_PASSWORD=${{ secrets.REGISTRY_TOKEN }}" >> "$GITHUB_OUTPUT"
 
   build-extension-charts:
     needs:
