@@ -23,6 +23,7 @@ jobs:
 
   read-secrets:
     runs-on: ubuntu-latest
+    needs: lint
     outputs:
       DOCKER_USERNAME: ${{ steps.extract-secrets.outputs.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ steps.extract-secrets.outputs.DOCKER_PASSWORD }}
@@ -37,9 +38,7 @@ jobs:
         echo "DOCKER_PASSWORD=${{ secrets.REGISTRY_TOKEN }}" >> "$GITHUB_OUTPUT"
 
   build-extension-charts:
-    needs:
-      - lint
-      - read-secrets
+    needs: read-secrets
     uses: ./.github/workflows/build-extension-catalog.yml
     permissions:
       actions: write
