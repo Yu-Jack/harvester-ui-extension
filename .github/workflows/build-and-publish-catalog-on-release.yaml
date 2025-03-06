@@ -31,6 +31,8 @@ jobs:
     - name: Set outputs
       id: extract-secrets
       run: |
+        echo "DOCKER_USERNAME=${{ secrets.REGISTRY_USER }}" >> "$GITHUB_ENV"
+        echo "DOCKER_PASSWORD=${{ secrets.REGISTRY_TOKEN }}" >> "$GITHUB_ENV"
         echo "DOCKER_USERNAME=${{ secrets.REGISTRY_USER }}" >> "$GITHUB_OUTPUT"
         echo "DOCKER_PASSWORD=${{ secrets.REGISTRY_TOKEN }}" >> "$GITHUB_OUTPUT"
 
