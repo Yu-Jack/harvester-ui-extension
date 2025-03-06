@@ -1,0 +1,57 @@
+name: Build Harvester Catalog Image and Publish on Release
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released]
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run tests
+        uses: ./.github/actions/lint
+
+  read-secrets:
+    runs-on: ubuntu-latest
+    outputs:
+      DOCKER_USERNAME: ${{ steps.extract-secrets.outputs.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ steps.extract-secrets.outputs.DOCKER_PASSWORD }}
+    steps:
+    - name: Read Secrets
+      uses: rancher-eio/read-vault-secrets@main
+      with:
+        secrets: |
+          secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials username | DOCKER_USERNAME ;
+          secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials password | DOCKER_PASSWORD ;
+    
+    - name: Set outputs
+      id: extract-secrets
+      run: |
+        echo "DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}" >> "$GITHUB_OUTPUT"
+        echo "DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }}" >> "$GITHUB_OUTPUT"
+
+  build-extension-charts:
+    needs:
+      - lint
+      - read-secrets
+    uses: ./.github/workflows/build-extension-catalog.yml
+    permissions:
+      actions: write
+      contents: read
+      packages: write
+    with:
+      registry_target: docker.io
+      registry_user: ${{ needs.read-secrets.outputs.DOCKER_USERNAME }}
+      repository_name: "harvester-ui-catalog"
+    secrets:
+      registry_token: ${{ needs.read-secrets.outputs.DOCKER_PASSWORD }}
