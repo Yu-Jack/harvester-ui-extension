@@ -6,9 +6,6 @@ on:
       registry_target:
         required: true
         type: string
-      repository_name:
-        required: true
-        type: string
       registry_user:
         required: true
         type: string
