@@ -26,12 +26,6 @@ jobs:
     outputs:
       build-status: ${{ job.status }}
     steps:
-      - name: Read Secrets
-        uses: rancher-eio/read-vault-secrets@main
-        with:
-          secrets: |
-            secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials username | DOCKER_USERNAME ;
-            secret/data/github/repo/${{ github.repository }}/dockerhub/rancher/credentials password | DOCKER_PASSWORD ;
       
       - name: Checkout repository (normal flow)
         uses: actions/checkout@v4
@@ -47,8 +41,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ env.DOCKER_PASSWORD }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
 
       - name: Setup Helm
         uses: azure/setup-helm@v3
@@ -66,5 +60,4 @@ jobs:
 
       - name: Build and push UI image
         run: |
-          publish="yarn publish-pkgs -cp -r ${{ inputs.registry_target }} -o ${{ inputs.registry_user }}"
-          $publish
+          yarn publish-pkgs -cp -r ${{ inputs.registry_target }} -o ${{ inputs.registry_user }} -i ""
