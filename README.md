@@ -161,6 +161,10 @@ To test the standalone UI, configure Harvester to load the UI from an external s
 
 If you want to contribute, start by reading this document, then visit our [Getting Started guide](https://extensions.rancher.io/extensions/next/extensions-getting-started) to learn how to develop and submit changes.
 
+## Test
+
+This is a test section added to demonstrate the workflow.
+
 ## License
 
 Copyright (c) 2014-2026 [SUSE, LLC.](https://www.suse.com/)
