@@ -520,6 +520,7 @@ harvester:
         lastCheckedAt: Last Checked
       componentHealth:
         label: Component Health
+        filter: Filter
         component: Component
         node: Node
         check: Check
@@ -1469,6 +1470,18 @@ harvester:
         label: 'Privileged Namespaces'
       restrictedNamespaces:
         label: 'Restricted Namespaces'
+    componentHealthDynamicFields:
+      add: Add Field
+      name: Name
+      componentHealthName: Component Health Name
+      apiVersion: API Version
+      kind: Kind
+      fieldPath: Field Path
+      matchValue: Match Value
+      severity: Severity
+      message: Message
+      required: 'Row {row}: {field} is required.'
+      invalidSeverity: 'Row {row}: Severity must be Error, Warning, or Info.'
     storageNetwork:
       range:
         placeholder: e.g. 172.16.0.0/24
@@ -2502,6 +2515,7 @@ advancedSettings:
     'harv-kubevirt-migration': 'Configure cluster-wide KubeVirt live migration parameters.'
     'harv-instance-manager-resources': 'Configure resource percentage reservations for Longhorn instance manager V1 and V2. Valid instance manager CPU range between 0 - 40.'
     'harv-cluster-pod-security-standard': 'Enforce Kubernetes Pod Security Standards (PSS) at the cluster level.'
+    'harv-componenthealth-dynamic-fields': 'Configure dynamic Component Health checks based on Kubernetes resource fields.'
 
 typeLabel:
   kubevirt.io.virtualmachine: |-
