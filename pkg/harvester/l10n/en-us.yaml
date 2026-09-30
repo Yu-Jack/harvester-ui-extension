@@ -521,6 +521,7 @@ harvester:
         lastCheckedAt: Last Checked
       componentHealth:
         label: Component Health
+        filter: Filter
         component: Component
         node: Node
         check: Check
