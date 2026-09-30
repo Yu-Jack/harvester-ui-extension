@@ -45,7 +45,8 @@ export const HCI_SETTING = {
   MAX_HOTPLUG_RATIO:                        'max-hotplug-ratio',
   KUBEVIRT_MIGRATION:                       'kubevirt-migration',
   INSTANCE_MANAGER_RESOURCES:               'instance-manager-resources',
-  CLUSTER_POD_SECURITY_STANDARD:            'cluster-pod-security-standard'
+  CLUSTER_POD_SECURITY_STANDARD:            'cluster-pod-security-standard',
+  COMPONENT_HEALTH_DYNAMIC_FIELDS:          'componenthealth-dynamic-fields'
 };
 
 export const HCI_ALLOWED_SETTINGS = {
@@ -148,6 +149,9 @@ export const HCI_ALLOWED_SETTINGS = {
   },
   [HCI_SETTING.CLUSTER_POD_SECURITY_STANDARD]: {
     kind: 'json', from: 'import', canReset: true, featureFlag: 'clusterPodSecurityStandardSetting'
+  },
+  [HCI_SETTING.COMPONENT_HEALTH_DYNAMIC_FIELDS]: {
+    kind: 'custom', from: 'import', canReset: true
   }
 };
 
