@@ -330,10 +330,10 @@ export default {
       },
       {
         align:         'right',
-        name:          'lastCheckedAt',
-        labelKey:      'harvester.dashboard.sections.componentHealth.lastCheckedAt',
-        value:         'lastCheckedAt',
-        sort:          'lastCheckedAt:desc',
+        name:          'lastUpdatedAt',
+        labelKey:      'harvester.dashboard.sections.componentHealth.lastUpdatedAt',
+        value:         'lastUpdatedAt',
+        sort:          'lastUpdatedAt:desc',
         formatter:     'LiveDate',
         formatterOpts: { addSuffix: true },
         width:         140,
@@ -605,7 +605,7 @@ export default {
         const component = labels[COMPONENT_LABEL] || componentHealth?.metadata?.name;
         const node = labels[NODE_LABEL] || '';
         const checks = componentHealth?.status?.checks || {};
-        const lastCheckedAt = componentHealth?.status?.lastCheckedAt;
+        const lastUpdatedAt = componentHealth?.status?.lastUpdatedAt;
 
         Object.entries(checks).forEach(([checkName, check]) => {
           rows.push({
@@ -620,7 +620,7 @@ export default {
             message:             check.message,
             affectedCount:       check.affectedCount,
             affectedResources:   check.affectedResources,
-            lastCheckedAt,
+            lastUpdatedAt,
           });
         });
       });
