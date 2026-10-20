@@ -528,7 +528,7 @@ harvester:
         severity: Severity
         message: Message
         affectedCount: Affected Resources
-        lastCheckedAt: Last Checked
+        lastUpdatedAt: Last Updated
         noAffectedResources: No affected resources
         moreAffectedResources: '+{count} more'
         noIssues: No issues detected
